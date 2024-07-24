@@ -1,0 +1,39 @@
+-- Database: pos_umkm
+
+CREATE TABLE admin (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE product (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    code VARCHAR(50) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    stock INT NOT NULL
+);
+
+CREATE TABLE customer (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    phone VARCHAR(15)
+);
+
+CREATE TABLE transaction (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    transaction_date DATETIME NOT NULL,
+    total_amount DECIMAL(10, 2) NOT NULL,
+    payment_method VARCHAR(50) NOT NULL,
+    admin_id INT,
+    FOREIGN KEY (admin_id) REFERENCES admin(id)
+);
+
+CREATE TABLE transaction_detail (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    transaction_id INT,
+    product_id INT,
+    quantity INT NOT NULL,
+    FOREIGN KEY (transaction_id) REFERENCES transaction(id),
+    FOREIGN KEY (product_id) REFERENCES product(id)
+);
